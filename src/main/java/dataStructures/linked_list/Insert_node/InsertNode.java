@@ -6,6 +6,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class InsertNode {
     static class SinglyLinkedListNode {
@@ -144,6 +145,25 @@ public class InsertNode {
     }
     /** solve*/
 
+    /** solve*/
+    public static SinglyLinkedListNode reverse(SinglyLinkedListNode llist) {
+        Stack<Integer> stack = new Stack<>();
+        SinglyLinkedListNode list = llist;
+        while (list != null) {
+            stack.push(list.data);
+            list = list.next;
+        }
+        list = llist;
+        while (list != null) {
+            list.data = stack.pop();
+            list = list.next;
+        }
+
+
+        return llist;
+
+    }
+    /** solve*/
 
     private static final Scanner scanner = new Scanner(System.in);
 
@@ -155,8 +175,8 @@ public class InsertNode {
         llist.insertNode(6);
         llist.insertNode(7);
         llist.insertNode(8);
-        SinglyLinkedListNode singlyLinkedListNode = insertNodeAtPosition(llist.head, 9, 2);
-        printLinkedList(singlyLinkedListNode);
+        SinglyLinkedListNode reverse = reverse(llist.head);
+          printLinkedList(reverse);
 
 
         scanner.close();
