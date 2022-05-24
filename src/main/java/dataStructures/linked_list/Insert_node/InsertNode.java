@@ -44,6 +44,9 @@ public class InsertNode {
     }
 
     static void printLinkedList(SinglyLinkedListNode head) {
+        if(head == null) {
+            return;
+        }
         SinglyLinkedListNode list = head;
         while (list.next != null) {
             System.out.println(list.data);
@@ -54,9 +57,11 @@ public class InsertNode {
 
     }
 
-    /** solve*/
+    /**
+     * solve
+     */
     static SinglyLinkedListNode insertNodeAtHead(SinglyLinkedListNode llist, int data) {
-        if(llist == null) {
+        if (llist == null) {
             llist = new SinglyLinkedListNode(data);
             return llist;
         }
@@ -65,12 +70,14 @@ public class InsertNode {
         listData.next = llist;
         llist = listData;
 
-       return llist;
+        return llist;
 
     }
     /** solve*/
 
-    /** solve*/
+    /**
+     * solve
+     */
     static SinglyLinkedListNode insertNodeAtTail(SinglyLinkedListNode head, int data) {
 //        if(head == null) {
 //            head = new SinglyLinkedListNode(data);
@@ -93,11 +100,11 @@ public class InsertNode {
 
 
         SinglyLinkedListNode temp = head;
-        if(temp == null){
+        if (temp == null) {
             head = new SinglyLinkedListNode(data);
             return head;
         }
-        while(temp.next != null){
+        while (temp.next != null) {
             temp = temp.next;
         }
         temp.next = new SinglyLinkedListNode(data);
@@ -107,10 +114,12 @@ public class InsertNode {
     }
     /** solve*/
 
-    /** solve*/
+    /**
+     * solve
+     */
     public static SinglyLinkedListNode insertNodeAtPosition(SinglyLinkedListNode llist, int data, int position) {
         SinglyLinkedListNode temp = llist;
-        if(temp == null){
+        if (temp == null) {
             return null;
         }
         for (int i = 0; i < position - 1; i++) {
@@ -145,39 +154,154 @@ public class InsertNode {
     }
     /** solve*/
 
-    /** solve*/
-    public static SinglyLinkedListNode reverse(SinglyLinkedListNode llist) {
-        Stack<Integer> stack = new Stack<>();
+    /**
+     * solve
+     */
+    public static SinglyLinkedListNode deleteNode(SinglyLinkedListNode llist, int position) {
+//        SinglyLinkedListNode list = llist;
+//        for (int i = 0; i < position - 1; i++) {
+//            list = list.next;
+//        }
+//        list = list.next.next;
+//        SinglyLinkedListNode temp = list;
+//        list = llist;
+//        for (int i = 0; i < position - 1; i++) {
+//            list = list.next;
+//        }
+//        list.next = temp;
+//        return llist;
+
+        if (position == 0) {
+            llist = llist.next;
+            return llist;
+        }
         SinglyLinkedListNode list = llist;
+        for (int i = 0; i < position - 1; i++) {
+            list = list.next;
+        }
+        list.next = list.next.next;
+        return llist;
+
+    }
+
+    /** solve*/
+
+    /**
+     * solve
+     */
+    public static int getNode(SinglyLinkedListNode llist, int positionFromTail) {
+        SinglyLinkedListNode list = llist;
+        int counter = 0;
+        while (list != null) {
+            list = list.next;
+            counter++;
+        }
+        int position = counter - positionFromTail;
+        list = llist;
+        for (int i = 0; i < position - 1; i++) {
+            list = list.next;
+        }
+
+
+        return list.data;
+
+    }
+    /**solve*/
+
+    /**
+     * solve
+     */
+    public static void reversePrint(SinglyLinkedListNode llist) {
+        SinglyLinkedListNode list = llist;
+        Stack<Integer> stack = new Stack<>();
         while (list != null) {
             stack.push(list.data);
             list = list.next;
         }
-        list = llist;
-        while (list != null) {
-            list.data = stack.pop();
-            list = list.next;
+
+        for (int i = 0; i < stack.size(); i++) {
+            System.out.println(stack.pop());
+            i -= 1;
         }
 
-
-        return llist;
-
     }
-    /** solve*/
+
+    /**
+     * solve
+     */
+
+
+    /**
+     * solve
+     */
+    public static SinglyLinkedListNode mergeLists(SinglyLinkedListNode head1, SinglyLinkedListNode head2) {
+        if(head1 == null && head2 == null) {
+            return null;
+        }
+        SinglyLinkedListNode list;
+        if (head1 == null) {
+            head1 = head2;
+        } else {
+            list = head1;
+            while (list.next != null) {
+                list = list.next;
+            }
+            list.next = head2;
+        }
+        boolean flag = true; // bubble sort
+        while (flag) {
+            flag = false;
+            list = head1;
+            while (list.next != null) {
+                if (list.data > list.next.data) {
+                    int temp = list.data;
+                    list.data = list.next.data;
+                    list.next.data = temp;
+                    flag = true;
+                }
+                list = list.next;
+
+            }
+        }
+
+        return head1;
+    }
+
+
+    /**
+     * solve
+     */
+
 
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
 
-        SinglyLinkedList llist = new SinglyLinkedList();
+        SinglyLinkedList head = new SinglyLinkedList();
 
-        llist.insertNode(5);
-        llist.insertNode(6);
-        llist.insertNode(7);
-        llist.insertNode(8);
-        SinglyLinkedListNode reverse = reverse(llist.head);
-          printLinkedList(reverse);
+        head.insertNode(9);
+        head.insertNode(10);
+        head.insertNode(11);
+        SinglyLinkedList head2 = new SinglyLinkedList();
 
+        head2.insertNode(3);
+        head2.insertNode(1);
+        head2.insertNode(11);
+        head2.insertNode(15);
+        head2.insertNode(18);
+        head2.insertNode(1);
+        head2.insertNode(0);
+
+        SinglyLinkedListNode singlyLinkedListNode = mergeLists(head.head, head2.head);
+        printLinkedList(singlyLinkedListNode);
+//        llist.insertNode(9);
+//        llist.insertNode(10);
+//        llist.insertNode(11);
+        //    reversePrint(llist.head);
+        //int res = getNode(llist.head, 2);
+//        printLinkedList(res);
+//        System.out.println(res);
+//
 
         scanner.close();
     }
